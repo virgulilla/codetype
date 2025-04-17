@@ -5,15 +5,18 @@ export const INITIAL_TIME = 30;
 const GEMINI_API_KEY = CONFIG.GEMINI_API_KEY
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_API_KEY;
 
-export async function getRandomSnippet() {
+export async function getRandomSnippet(config = {}) {
+    const language = config.language || 'JavaScript'
+    const length = (config.length || 'Medium').toLowerCase()
+    let lines = '3 lines'
+    if (length === 'Short') lines = '1 line'
+    if (length === 'Long') lines = '5 lines'
+    const promptText = `Write a ${lines} and functional ${language} code snippet. Do not include explanations or comments.`
+
     const prompt = {
         contents: [
         {
-            parts: [
-            {
-                text: "Escribe un snippet de código JavaScript breve y funcional. No añadas explicaciones ni comentarios."
-            }
-            ],
+            parts: [{ text: promptText }],
             role: 'user'
         }
         ]

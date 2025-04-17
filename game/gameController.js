@@ -10,14 +10,28 @@ import {
     let words = []
     let playing = false
     let currentTime = INITIAL_TIME
+    let config = {
+        language: 'JavaScript',
+        time: 120,
+        length: 'Medium'
+      }
   
     const $time = $game.querySelector('time')
     const $paragraph = $game.querySelector('#text-area')
     const $input = $game.querySelector('input')
     const $results = document.querySelector('#results')
     const $button = document.querySelector('#reload-button')
+
+    async function init(newConfig = {}) {
+        config = { ...config, ...newConfig }
+        await initGame(config)
+    }
+    
+    function updateConfig(newOptions) {
+        config = { ...config, ...newOptions }        
+    }
   
-    initGame()
+    initGame(config)
   
     document.addEventListener('keydown', () => {
       $input.focus()
@@ -150,22 +164,24 @@ import {
       gameView.showResults($results, wpm, accuracy)
     }
   
-    async function initGame() {
-      try{
-        gameView.showGame($game)
-        gameView.hideResults($results)
-        $input.value = ''
-        currentTime = INITIAL_TIME
-        gameView.updateTime($time, currentTime)
-  
-        const snippet = await getRandomSnippet()
-        words = normalizeSnippetToWords(snippet)
-  
-        gameView.renderSnippet($paragraph, words)
-      } catch(error) {
-        console.error(error.message)
+    async function initGame(config = {}) {
+        try {
+          gameView.showGame($game)
+          gameView.hideResults($results)
+          $input.value = ''
+      
+          currentTime = config.time ? Number(config.time) : INITIAL_TIME
+          gameView.updateTime($time, currentTime)
+      
+          const snippet = await getRandomSnippet(config) 
+          words = normalizeSnippetToWords(snippet)
+      
+          gameView.renderSnippet($paragraph, words)
+        } catch (error) {
+          console.error('Error initializing game:', error.message)
+        }
       }
-        
-    }
+
+    return { init, updateConfig }
   }
   
