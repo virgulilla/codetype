@@ -1,12 +1,42 @@
-// gameModel.js
-import { codeSnippets as INITIAL_SNIPPET } from '../data.js'
+import { CONFIG } from '../config.js';
 
 export const INITIAL_TIME = 30;
 
-export function getRandomSnippet() {
-  const index = Math.floor(Math.random() * INITIAL_SNIPPET.length)
-  return INITIAL_SNIPPET[index]
+const GEMINI_API_KEY = CONFIG.GEMINI_API_KEY
+const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_API_KEY;
+
+export async function getRandomSnippet() {
+    const prompt = {
+        contents: [
+        {
+            parts: [
+            {
+                text: "Escribe un snippet de código JavaScript breve y funcional. No añadas explicaciones ni comentarios."
+            }
+            ],
+            role: 'user'
+        }
+        ]
+    };
+
+    const response = await fetch(GEMINI_URL, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(prompt)
+    });
+
+    const result = await response.json();
+    let code = result?.candidates?.[0]?.content?.parts?.[0]?.text || '// Error generando código';
+    
+    code = code
+        .replace(/^```(?:javascript)?\s*/i, '')
+        .replace(/```[\s\n]*$/, '')
+        .trim()
+  return code;
 }
+
 
 export const normalizeSnippetToWords = (snippet) => {
     const lines = snippet.split('\n');

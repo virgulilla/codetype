@@ -150,17 +150,22 @@ import {
       gameView.showResults($results, wpm, accuracy)
     }
   
-    function initGame() {
-      gameView.showGame($game)
-      gameView.hideResults($results)
-      $input.value = ''
-      currentTime = INITIAL_TIME
-      gameView.updateTime($time, currentTime)
+    async function initGame() {
+      try{
+        gameView.showGame($game)
+        gameView.hideResults($results)
+        $input.value = ''
+        currentTime = INITIAL_TIME
+        gameView.updateTime($time, currentTime)
   
-      const snippet = getRandomSnippet()
-      words = normalizeSnippetToWords(snippet)
+        const snippet = await getRandomSnippet()
+        words = normalizeSnippetToWords(snippet)
   
-      gameView.renderSnippet($paragraph, words)
+        gameView.renderSnippet($paragraph, words)
+      } catch(error) {
+        console.error(error.message)
+      }
+        
     }
   }
   
