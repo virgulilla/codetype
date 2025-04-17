@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeType</title>
+    <link rel="stylesheet" href="main.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-900 text-white font-mono min-h-screen">
+
+    <header class="w-full px-6 py-4 bg-gray-900 border-b border-gray-700 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-white">CodeType</h1>
+      <div class="space-x-4 text-sm text-gray-400">
+        <button class="hover:text-white">Estadísticas</button>
+        <button class="hover:text-white">Configuración</button>
+      </div>
+    </header>
+
+    <nav class="w-full flex justify-center mt-6">
+      <div class="flex items-center gap-4 bg-gray-800 px-4 py-2 rounded-lg text-sm text-gray-400">
+        <button id="option-punctuation" class="hover:text-white">@ punctuation</button>
+        <button id="option-numbers" class="hover:text-white"># numbers</button>
+        <span class="mx-2 text-gray-600">|</span>
+        <button id="option-time" class="text-yellow-400 flex items-center gap-1">
+          ⏱ <span>time</span>
+        </button>
+        <button id="option-word" class="hover:text-white">A words</button>        
+        <span class="mx-2 text-gray-600">|</span>
+
+        <div id="option-values">
+          <button class="hover:text-white">15</button>
+          <button class="hover:text-white">30</button>
+          <button class="hover:text-white">60</button>
+          <button class="text-yellow-400 font-semibold">120</button>
+          <button id="custom-value" class="hover:text-white">✖</button>
+      </div>
+      </div>
+    </nav>
+
+    <section class="w-full flex flex-col items-center mt-10 px-4">
+      <div id="language-selector" class="mb-6 text-gray-500 text-sm flex items-center gap-2">
+        🌐 <span>english</span>
+      </div>
+    
+      <section id="game" class="max-w-4xl text-2xl leading-relaxed text-gray-500 text-center break-words">        
+        <div class="flex flex-col">
+          <time class="text-orange-400 self-start"></time>
+          <div id="text-area" class="m-0"></div>
+        </div>
+        <input class="absolute top-0 left-0 opacity-0 pointer-events-none -z-50" autofocus>
+      </section>
+
+      <section id="results" class="p-4 flex flex-col gap-4  bg-gray-800 text-white rounded-md shadow-md">
+        <h2 class="text-lg font-semibold border-b border-gray-600 pb-2 mb-2">Resultados</h2>
+      
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-400 uppercase tracking-wide">WPM</span>
+          <h3 id="results-wpm" class="text-base font-medium text-white">--</h3>
+        </div>
+      
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-400 uppercase tracking-wide">Accuracy</span>
+          <h3 id="results-accuracy" class="text-base font-medium text-white">--</h3>
+        </div>
+      
+        <div class="flex justify-center mt-4">
+          <button id="reload-button" class="p-2 rounded hover:bg-gray-700 transition">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+              class="text-gray-300 hover:text-white transition">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M19.933 13.041a8 8 0 1 1 -9.925 -8.788c3.899 -1 7.935 1.007 9.425 4.747" />
+              <path d="M20 4v5h-5" />
+            </svg>
+          </button>
+        </div>
+      </section>
+      
+      
+    </section>
+
+    <footer class="w-full px-4 py-6 text-xs text-gray-500 flex justify-around items-center bg-gray-900 mt-16">
+      <div class="flex flex-wrap items-center gap-4">
+        <a href="#" class="flex items-center gap-1 hover:text-white">
+          ✉️ <span>contact</span>
+        </a>
+        <a href="#" class="flex items-center gap-1 hover:text-white">
+          👤 <span>support</span>
+        </a>
+        <a href="#" class="flex items-center gap-1 hover:text-white">
+          💻 <span>github</span>
+        </a>
+        <a href="#" class="flex items-center gap-1 hover:text-white">
+          <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f47e.svg" alt="discord" class="h-3 w-3" />
+          <span>discord</span>
+        </a>
+        <a href="#" class="flex items-center gap-1 hover:text-white">
+          🐦 <span>twitter</span>
+        </a>
+        <a href="#" class="flex items-center gap-1 hover:text-white">
+          📄 <span>terms</span>
+        </a>
+        <a href="#" class="flex items-center gap-1 hover:text-white">
+          🛡️ <span>security</span>
+        </a>
+        <a href="#" class="flex items-center gap-1 hover:text-white">
+          🔒 <span>privacy</span>
+        </a>
+      </div>
+    </footer>
+
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
